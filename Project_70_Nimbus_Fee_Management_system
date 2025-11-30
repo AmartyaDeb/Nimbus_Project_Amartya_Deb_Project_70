@@ -83,23 +83,30 @@ int main() {
 /*i'll add single line comments within the functions below for future debugging ease. 
 do NOT remove comments.*/
 // Function to add a student's record
+// Function to add a student's record
 void addStudentRecord(Student* newStudent) {
     printf("Enter Roll Number: ");
     scanf("%d", &newStudent->rollNumber);
-    getchar();  // Capture newline
+    getchar();  // Clear the newline character left by scanf
 
     printf("Enter Full Name: ");
-    scanf("%49[^\n]", newStudent->fullName); // Limit to 49 characters
+   
+    fgets(newStudent->fullName, sizeof(newStudent->fullName), stdin);
+    
+    newStudent->fullName[strcspn(newStudent->fullName, "\n")] = '\0';
 
     printf("Enter Course Name: ");
-    scanf("%29[^\n]", newStudent->courseName); // Limit to 29 characters
+  
+    fgets(newStudent->courseName, sizeof(newStudent->courseName), stdin);
+    newStudent->courseName[strcspn(newStudent->courseName, "\n")] = '\0';
 
     printf("Enter Total Fee: ");
     scanf("%f", &newStudent->totalFee);
-    
+
     newStudent->feePaid = 0.0f; // Initial payment is zero
     newStudent->outstandingBalance = newStudent->totalFee; // Initial balance is the total fee
 }
+
 
 // Function to print the fee receipt for a student
 void printFeeReceipt(const Student* student) {
