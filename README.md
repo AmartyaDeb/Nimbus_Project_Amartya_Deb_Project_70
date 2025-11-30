@@ -93,3 +93,9 @@ On startup, it loads any previously saved data so you don’t lose your progress
 Conclusion
 
 The School Fee Management System provides an efficient way to manage student fee records. It allows administrators to track fees, handle late penalties, and view detailed revenue summaries. By saving and loading data from a file, the system ensures that all information is retained between program runs.
+<img width="1459" height="898" alt="image" src="https://github.com/user-attachments/assets/bc9921e1-92da-4a74-b069-f45da7bd5bad" />
+<img width="1265" height="638" alt="image" src="https://github.com/user-attachments/assets/b8b7956a-c64f-415a-b57f-d21d4237e6e3" />
+<img width="1263" height="746" alt="image" src="https://github.com/user-attachments/assets/013f5bdc-01de-4ee9-b473-f33b7c56a057" />
+<img width="1263" height="683" alt="image" src="https://github.com/user-attachments/assets/7a0cd815-1d16-4589-b044-639238262842" />
+<img width="1250" height="732" alt="image" src="https://github.com/user-attachments/assets/f48969e0-a64e-438c-87bb-85463ab6287d" />
+
