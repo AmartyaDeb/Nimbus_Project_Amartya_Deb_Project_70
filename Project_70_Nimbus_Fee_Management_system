@@ -1,1 +1,172 @@
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+typedef struct {
+    int rollNumber;
+    char fullName[50];
+    char courseName[30];
+    float totalFee;
+    float feePaid;
+    float outstandingBalance;
+} Student;
+
+void addStudentRecord(Student* newStudent);
+void printFeeReceipt(const Student* student);
+void updateOutstandingBalance(Student* student);
+void applyPenaltyFee(Student* student);
+void displayRevenueSummary(const Student* studentList, int numStudents);
+void saveStudentDataToFile(const Student* studentList, int numStudents);
+void loadStudentDataFromFile(Student** studentList, int* numStudents);
+
+int main() {
+    int userChoice, numberOfStudents = 0;
+    Student* studentList = NULL;
+
+    loadStudentDataFromFile(&studentList, &numberOfStudents);
+
+    do {
+        printf("\nSchool Fee Management System\n");
+        printf("1. Add New Student\n");
+        printf("2. Print Fee Receipt\n");
+        printf("3. Apply Late Penalty Fee\n");
+        printf("4. Display Revenue Summary by Course\n");
+        printf("5. Exit\n");
+        printf("Enter your choice: ");
+        scanf("%d", &userChoice);
+        getchar();  
+
+        switch (userChoice) {
+            case 1:
+                
+                studentList = realloc(studentList, (numberOfStudents + 1) * sizeof(Student));
+                addStudentRecord(&studentList[numberOfStudents]);
+                numberOfStudents++;
+                break;
+
+            case 2:
+               
+                for (int i = 0; i < numberOfStudents; i++) {
+                    printFeeReceipt(&studentList[i]);
+                }
+                break;
+
+            case 3:
+                
+                for (int i = 0; i < numberOfStudents; i++) {
+                    applyPenaltyFee(&studentList[i]);
+                }
+                break;
+
+            case 4:
+                
+                displayRevenueSummary(studentList, numberOfStudents);
+                break;
+
+            case 5:
+                
+                saveStudentDataToFile(studentList, numberOfStudents);
+                printf("Program exited successfully.\n");
+                break;
+
+            default:
+                printf("Invalid selection. Please choose again.\n");
+                break;
+        }
+    } while (userChoice != 5);
+
+    free(studentList);
+
+    return 0;
+}
+/*i'll add single line comments within the functions below for future debugging ease. 
+do NOT remove comments.*/
+// Function to add a student's record
+void addStudentRecord(Student* newStudent) {
+    printf("Enter Roll Number: ");
+    scanf("%d", &newStudent->rollNumber);
+    getchar();  // Capture newline
+
+    printf("Enter Full Name: ");
+    scanf("%49[^\n]", newStudent->fullName); // Limit to 49 characters
+
+    printf("Enter Course Name: ");
+    scanf("%29[^\n]", newStudent->courseName); // Limit to 29 characters
+
+    printf("Enter Total Fee: ");
+    scanf("%f", &newStudent->totalFee);
+    
+    newStudent->feePaid = 0.0f; // Initial payment is zero
+    newStudent->outstandingBalance = newStudent->totalFee; // Initial balance is the total fee
+}
+
+// Function to print the fee receipt for a student
+void printFeeReceipt(const Student* student) {
+    printf("\nFee Receipt for Roll No: %d\n", student->rollNumber);
+    printf("Name: %s\n", student->fullName);
+    printf("Course: %s\n", student->courseName);
+    printf("Total Fee: %.2f\n", student->totalFee);
+    printf("Amount Paid: %.2f\n", student->feePaid);
+    printf("Outstanding Balance: %.2f\n", student->outstandingBalance);
+    printf("------------------------------\n");
+}
+
+// Function to update the outstanding balance based on fee paid
+void updateOutstandingBalance(Student* student) {
+    student->outstandingBalance = student->totalFee - student->feePaid;
+}
+
+// Function to apply a late penalty fee if the student has an outstanding balance
+void applyPenaltyFee(Student* student) {
+    if (student->outstandingBalance > 0) {
+        float penalty = student->outstandingBalance * 0.05f;  // 5% late fee
+        student->outstandingBalance += penalty;
+        printf("Penalty fee of %.2f applied to %s (Roll No: %d). New balance: %.2f\n", 
+               penalty, student->fullName, student->rollNumber, student->outstandingBalance);
+    }
+}
+
+// Function to display the revenue summary for all students
+void displayRevenueSummary(const Student* studentList, int numStudents) {
+    float totalRevenue = 0.0f;
+    printf("\nClass-wise Revenue Summary\n");
+
+    // Calculate total revenue
+    for (int i = 0; i < numStudents; i++) {
+        totalRevenue += studentList[i].feePaid;
+    }
+    printf("Total revenue collected: %.2f\n", totalRevenue);
+
+    // Breakdown by course
+    printf("\nRevenue by Course:\n");
+    for (int i = 0; i < numStudents; i++) {
+        printf("Course: %s, Collected Revenue: %.2f\n", studentList[i].courseName, studentList[i].feePaid);
+    }
+}
+
+// Function to save student data to a file
+void saveStudentDataToFile(const Student* studentList, int numStudents) {
+    FILE* file = fopen("student_data.dat", "wb");
+    if (file != NULL) {
+        fwrite(studentList, sizeof(Student), numStudents, file);
+        fclose(file);
+        printf("Student data has been saved successfully.\n");
+    } else {
+        printf("Error saving student data.\n");
+    }
+}
+
+// Function to load student data from a file
+void loadStudentDataFromFile(Student** studentList, int* numStudents) {
+    FILE* file = fopen("student_data.dat", "rb");
+    if (file != NULL) {
+        fseek(file, 0, SEEK_END);
+        *numStudents = ftell(file) / sizeof(Student);
+        fseek(file, 0, SEEK_SET);
+
+        *studentList = malloc(*numStudents * sizeof(Student));
+        fread(*studentList, sizeof(Student), *numStudents, file);
+        fclose(file);
+    }
+}
