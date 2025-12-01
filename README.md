@@ -47,13 +47,13 @@ One important fix was ensuring that input functions like fgets worked smoothly f
 
 Output Screenshots
 
-The system outputs various messages depending on the user's choices. Here are some of the types of outputs you can expect:
+The system outputs various messages depending on the user's choices. Here are some of the types of outputs we can expect:
 
 Main Menu: The user is presented with a list of options to choose from, such as adding a new student or displaying a fee receipt.
 
 Adding a New Student: The program will ask for details like the student’s roll number, full name, course, and total fee, then save the data for future use.
 
-Fee Receipt: After entering student data, you can print a detailed receipt that includes the student's name, course, total fee, amount paid, and outstanding balance.
+Fee Receipt: After entering student data, we can print a detailed receipt that includes the student's name, course, total fee, amount paid, and outstanding balance.
 
 Revenue Summary: The program can display a summary of the total revenue collected and how it breaks down by course.
 
@@ -66,15 +66,15 @@ gcc -o fee_management_system fee_management_system.c
 
 2. Running the Program
 
-Once the program is compiled, you can run it with:
+Once the program is compiled, we can run it with:
 
 ./fee_management_system
 
 3. Using the Menu
 
-The program presents a menu of options, and you can choose one by entering the corresponding number:
+The program presents a menu of options, and we can choose one by entering the corresponding number:
 
-Add New Student: Allows you to input a new student’s details and save them.random aaah
+Add New Student: Allows we to input a new student’s details and save them.random aaah
 
 Print Fee Receipt: Prints a fee receipt for each student, showing their fee details.
 
@@ -86,9 +86,9 @@ Exit: Saves all student data to a file and exits the program.
 
 4. Saving and Loading Data
 
-The program automatically saves student data to a file (student_data.dat) when you exit.
+The program automatically saves student data to a file (student_data.dat) when we exit.
 
-On startup, it loads any previously saved data so you don’t lose your progress.
+On startup, it loads any previously saved data so we don’t lose your progress.
 
 Conclusion
 
