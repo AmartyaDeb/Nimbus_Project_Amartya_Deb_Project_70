@@ -38,45 +38,45 @@ int main() {
         getchar();  
 
         switch (userChoice) {
-            case 1:
+            case 1: // Add a new student and expand the dynamic student list
                 
                 studentList = realloc(studentList, (numberOfStudents + 1) * sizeof(Student));
                 addStudentRecord(&studentList[numberOfStudents]);
                 numberOfStudents++;
                 break;
 
-            case 2:
+            case 2: // Print fee receipts for all students
                
                 for (int i = 0; i < numberOfStudents; i++) {
                     printFeeReceipt(&studentList[i]);
                 }
                 break;
 
-            case 3:
+            case 3: // Apply late penalty to all students with outstanding balances
                 
                 for (int i = 0; i < numberOfStudents; i++) {
                     applyPenaltyFee(&studentList[i]);
                 }
                 break;
 
-            case 4:
+            case 4: // Display total and course-wise revenue summary
                 
                 displayRevenueSummary(studentList, numberOfStudents);
                 break;
 
-            case 5:
+            case 5: // Save all student data and exit the program
                 
                 saveStudentDataToFile(studentList, numberOfStudents);
                 printf("Program exited successfully.\n");
                 break;
 
-            default:
+            default: // Handle invalid user input
                 printf("Invalid selection. Please choose again.\n");
                 break;
         }
     } while (userChoice != 5);
 
-    free(studentList);
+    free(studentList); // free allocated memory before exiting
 
     return 0;
 }
@@ -160,7 +160,7 @@ void saveStudentDataToFile(const Student* studentList, int numStudents) {
         fclose(file);
         printf("Student data has been saved successfully.\n");
     } else {
-        printf("Error saving student data.\n");
+        printf("Error saving student data\n");
     }
 }
 
