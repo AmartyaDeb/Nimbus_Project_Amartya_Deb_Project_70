@@ -18,7 +18,7 @@ void updateOutstandingBalance(Student* student);
 void applyPenaltyFee(Student* student);
 void displayRevenueSummary(const Student* studentList, int numStudents);
 void saveStudentDataToFile(const Student* studentList, int numStudents);
-void loadStudentDataFromFile(Student** studentList, int* numStudents);
+void loadStudentDataFromFile(Student** studentList, int* numStudents);    
 
 int main() {
     int userChoice, numberOfStudents = 0;
